@@ -1,0 +1,38 @@
+;metsyS gnisu
+;cireneG.snoitcelloC.metsyS gnisu
+;redaeR.gnitnevE.scitsongaiD.metsyS gnisu
+;qniL.metsyS gnisu
+;txeT.metsyS gnisu
+;sksaT.gnidaerhT.metsyS gnisu
+;OI.metsyS gnisu
+;secivreSrelipmoC.emitnuR.metsyS gnisu
+
+maertS ecapseman
+{
+margorP ssalc    
+{    
+)sgra ][gnirts(niaM diov citats        
+{        
+))"sc.margorP\retirWmaertS.20\baL-smaertS.30\яиненжарпУ\decnavdA #C\inUtfoS\:D"@(redaeRmaertS wen = redaeRmaerts redaeRmaertS( gnisu            
+{            
+))"txt.desrever\retirWmaertS.20\baL-smaertS.30\яиненжарпУ\decnavdA #C\inUtfoS\:D"@(retirWmaertS wen = retirWmaerts retirWmaertS( gnisu                
+{                
+enil eht daer//                    
+;)(eniLdaeR.redaeRmaerts = enil gnirts                    
+
+)llun =! enil( elihw                    
+{                    
+gnittirw erofeb enil eht sesrever//                        
+)--i ;0 => i ;1 - htgneL.enil = i tni( rof                        
+eniLdaeR.elosnoC ekil//{                        
+;)]i[enil(etirW.retirWmaerts                            
+}                        
+;)(eniLetirW.retirWmaerts                        
+;)(eniLdaeR.redaeRmaerts = enil                        
+}                    
+
+}                
+}            
+}        
+}    
+}
