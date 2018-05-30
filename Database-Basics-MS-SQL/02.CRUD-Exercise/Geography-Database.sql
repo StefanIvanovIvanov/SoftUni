@@ -6,6 +6,29 @@ GO
 USE Geography
 GO
 
+--22.All Mountain Peaks
+
+SELECT PeakName
+FROM Peaks
+ORDER BY PeakName
+
+--23.Biggest Countries by Population
+
+SELECT TOP(30) CountryName, Population
+FROM Countries
+WHERE ContinentCode=N'EU'
+ORDER BY Population DESC, CountryName
+
+--24.Countries and Currency (Euro / Not Euro)
+
+SELECT CountryName, CountryCode, 
+ CASE
+  WHEN CurrencyCode = 'EUR' THEN 'Euro'
+  ELSE 'Not Euro'
+ END AS Curreny
+FROM Countries
+ORDER BY CountryName
+
 
 -- Drop all existing Geography tables, so that we can create them
 IF OBJECT_ID('Monasteries') IS NOT NULL
@@ -89,7 +112,6 @@ CREATE TABLE Rivers(
   CONSTRAINT PK_Rivers PRIMARY KEY CLUSTERED (Id)
 )
 GO
-
 CREATE TABLE CountriesRivers(
 	RiverId int NOT NULL,
 	CountryCode char(2) NOT NULL,
@@ -808,3 +830,4 @@ GO
 ALTER TABLE Peaks WITH CHECK ADD CONSTRAINT FK_Peaks_Mountains
 FOREIGN KEY(MountainId) REFERENCES Mountains (Id)
 GO
+

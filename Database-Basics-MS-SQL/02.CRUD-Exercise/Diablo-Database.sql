@@ -8,6 +8,11 @@ GO
 USE [Diablo]
 GO
 
+--25.All Diablo Characters
+
+SELECT [Name] FROM [dbo].Characters
+ORDER BY [Name]
+
 CREATE TABLE [dbo].[Characters](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
