@@ -6,28 +6,29 @@ GO
 USE Geography
 GO
 
---22.All Mountain Peaks
+--Problem 10.Countries Holding ‘A’ 3 or More Times
 
-SELECT PeakName
-FROM Peaks
-ORDER BY PeakName
-
---23.Biggest Countries by Population
-
-SELECT TOP(30) CountryName, Population
+--First Way
+SELECT CountryName, IsoCode FROM(
+SELECT CountryName, IsoCode, LEN(CountryName) - LEN(REPLACE(CountryName, 'a', ''))
+AS LetterCount
 FROM Countries
-WHERE ContinentCode=N'EU'
-ORDER BY Population DESC, CountryName
+)CountriestInfo
+WHERE LetterCount >= 3
+ORDER BY IsoCode
 
---24.Countries and Currency (Euro / Not Euro)
-
-SELECT CountryName, CountryCode, 
- CASE
-  WHEN CurrencyCode = 'EUR' THEN 'Euro'
-  ELSE 'Not Euro'
- END AS Currency
+--Second Way
+SELECT CountryName, IsoCode
 FROM Countries
-ORDER BY CountryName
+WHERE CountryName LIKE '%a%a%a'
+ORDER BY IsoCode
+
+--Problem 11.Mix of Peak and River Names
+
+SELECT PeakName, RiverName, LOWER(CONCAT(LEFT(PeakName, LEN(PeakName)-1), RiverName)) AS Mix
+FROM Peaks, Rivers
+WHERE RIGHT(PeakName, 1) = LEFT(RiverName,1)
+ORDER BY Mix
 
 
 -- Drop all existing Geography tables, so that we can create them
