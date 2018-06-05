@@ -12,88 +12,46 @@ GO
 USE SoftUni
 GO
 
---Problem 1.Find Names of All Employees by First Name
+--Problem 13.Departments Total Salaries
 
-SELECT FirstName, LastName
+
+
+--Problem 14.Employees Minimum Salaries
+
+
+
+--Problem 15.Employees Average Salaries
+
+
+
+--Problem 16.Employees Maximum Salaries
+
+
+
+--Problem 17.Employees Count Salaries
+
+
+
+
+--Problem 18.3rd Highest Salary
+
+
+
+--Problem 19.Salary Challenge
+
+SELECT TOP(10) FirstName, LastName, DepartmentID
+FROM Employees AS e1
+WHERE Salary > (
+SELECT AVG(Salary)
+FROM Employees AS e2
+WHERE e1.DepartmentID=e2.DepartmentID
+GROUP BY DepartmentID
+)
+
+
+
+SELECT Salary, SUM(Salary) OVER (ORDER BY EmployeeID)
 FROM Employees
-WHERE FirstName LiKE 'SA%'
-
---Problem 2.Find Names of All employees by Last Name 
-
-SELECT FirstName, LastName
-FROM Employees
-WHERE LastName LIKE '%EI%'
-
---Problem 3.Find First Names of All Employees
-
-SELECT FirstName 
-  FROM Employees
- WHERE DepartmentID IN (3,10) 
-       AND (SELECT YEAR(HireDate)) >= 1995 
-	   AND (SELECT YEAR(HireDate)) <= 2005
-
---Problem 4.Find All Employees Except Engineers
-
-SELECT FirstName, LastName
-FROM Employees
-WHERE JobTitle NOT LIKE '%engineer%'
-
---Problem 5.Find Towns with Name Length
-
-SELECT [Name]
-FROM Towns
-WHERE LEN([Name]) IN (5,6)
---BETWEEN 5 AND 6
-ORDER BY [Name]
-
---Problem 6.Find Towns Starting With
-
-SELECT *
-FROM Towns
-WHERE [Name] LIKE 'm%' OR [Name] LIKE 'k%' OR [Name] LIKE 'b%' OR [Name] LIKE 'e%'
-ORDER BY[Name]
-
---Problem 7.Find Towns Not Starting With
-
-SELECT *
-FROM Towns
-WHERE[Name] NOT LIKE 'r%' AND [Name] NOT LIKE 'b%' AND [Name] NOT LIKE 'd%'
-ORDER BY [Name]
-
---Problem 8.Create View Employees Hired After 2000 Year
-
-CREATE VIEW V_EmployeesHiredAfter2000 AS
-SELECT FirstName,LastName 
-  FROM Employees
- WHERE (SELECT YEAR(HireDate)) > 2000
-
- SELECT *
- FROM V_EmployeesHiredAfter2000
-
- --Problem 9.Length of Last Name
-
- SELECT FirstName, LastName
- FROM Employees
- WHERE LEN(LastName)=5
-
-
-EXEC sp_changedbowner 'sa'
-
---DROP TABLE Towns
---DROP TABLE Addresses
---DROP TABLE Projects
---DROP TABLE EmployeesProjects
---DROP TABLE Employees
-
---TRUNCATE TABLE Towns
---TRUNCATE TABLE Addresses
---TRUNCATE TABLE Projects
---TRUNCATE TABLE EmployeesProjects
---TRUNCATE TABLE Employees
-
---SELECT * FROM Employees
-
-
 
 CREATE TABLE Towns(
   TownID int IDENTITY NOT NULL,

@@ -12,88 +12,51 @@ GO
 USE SoftUni
 GO
 
---Problem 1.Find Names of All Employees by First Name
+--SUM, COUNT, MAX, MIN, AVG
 
-SELECT FirstName, LastName
+SELECT DepartmentId, SUM(Salary) AS [Total Salary]
 FROM Employees
-WHERE FirstName LiKE 'SA%'
+GROUP BY DepartmentID
+ORDER BY [Total Salary] DESC
 
---Problem 2.Find Names of All employees by Last Name 
+--With Allias
+SELECT e.DepartmentID, SUM(e.Salary) AS [Total Salary]
+FROM Employees AS e
+GROUP BY e.DepartmentID
+ORDER BY e.DepartmentID
 
-SELECT FirstName, LastName
+--COUNT Ignores NULL
+SELECT e.DepartmentID, COUNT(e.Salary) AS [Salary Count]
+FROM Employees AS e
+GROUP BY e.DepartmentID
+ORDER BY e.DepartmentID
+
+SELECT e.DepartmentID, AVG(e.Salary) AS [Average Salary]
+FROM Employees AS e
+GROUP BY e.DepartmentID
+ORDER BY e.DepartmentID
+
+SELECT e.DepartmentID, MAX(e.Salary) AS [Max Salary]
+FROM Employees AS e
+GROUP BY e.DepartmentID
+ORDER BY e.DepartmentID
+
+SELECT e.DepartmentID, MIN(e.Salary) AS [Min Salary]
+FROM Employees AS e
+GROUP BY e.DepartmentID
+ORDER BY e.DepartmentID
+
+--HAVING
+SELECT e.DepartmentID, SUM(e.Salary) AS [Total Salary]
+FROM Employees AS e
+GROUP BY e.DepartmentID
+HAVING SUM(e.Salary)>200000
+
+--OVER
+
+
+SELECT Salary, SUM(Salary) OVER (ORDER BY EmployeeID)
 FROM Employees
-WHERE LastName LIKE '%EI%'
-
---Problem 3.Find First Names of All Employees
-
-SELECT FirstName 
-  FROM Employees
- WHERE DepartmentID IN (3,10) 
-       AND (SELECT YEAR(HireDate)) >= 1995 
-	   AND (SELECT YEAR(HireDate)) <= 2005
-
---Problem 4.Find All Employees Except Engineers
-
-SELECT FirstName, LastName
-FROM Employees
-WHERE JobTitle NOT LIKE '%engineer%'
-
---Problem 5.Find Towns with Name Length
-
-SELECT [Name]
-FROM Towns
-WHERE LEN([Name]) IN (5,6)
---BETWEEN 5 AND 6
-ORDER BY [Name]
-
---Problem 6.Find Towns Starting With
-
-SELECT *
-FROM Towns
-WHERE [Name] LIKE 'm%' OR [Name] LIKE 'k%' OR [Name] LIKE 'b%' OR [Name] LIKE 'e%'
-ORDER BY[Name]
-
---Problem 7.Find Towns Not Starting With
-
-SELECT *
-FROM Towns
-WHERE[Name] NOT LIKE 'r%' AND [Name] NOT LIKE 'b%' AND [Name] NOT LIKE 'd%'
-ORDER BY [Name]
-
---Problem 8.Create View Employees Hired After 2000 Year
-
-CREATE VIEW V_EmployeesHiredAfter2000 AS
-SELECT FirstName,LastName 
-  FROM Employees
- WHERE (SELECT YEAR(HireDate)) > 2000
-
- SELECT *
- FROM V_EmployeesHiredAfter2000
-
- --Problem 9.Length of Last Name
-
- SELECT FirstName, LastName
- FROM Employees
- WHERE LEN(LastName)=5
-
-
-EXEC sp_changedbowner 'sa'
-
---DROP TABLE Towns
---DROP TABLE Addresses
---DROP TABLE Projects
---DROP TABLE EmployeesProjects
---DROP TABLE Employees
-
---TRUNCATE TABLE Towns
---TRUNCATE TABLE Addresses
---TRUNCATE TABLE Projects
---TRUNCATE TABLE EmployeesProjects
---TRUNCATE TABLE Employees
-
---SELECT * FROM Employees
-
-
 
 CREATE TABLE Towns(
   TownID int IDENTITY NOT NULL,

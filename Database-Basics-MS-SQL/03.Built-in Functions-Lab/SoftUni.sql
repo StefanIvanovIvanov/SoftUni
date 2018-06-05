@@ -12,86 +12,131 @@ GO
 USE SoftUni
 GO
 
---Problem 1.Find Names of All Employees by First Name
-
-SELECT FirstName, LastName
-FROM Employees
-WHERE FirstName LiKE 'SA%'
-
---Problem 2.Find Names of All employees by Last Name 
-
-SELECT FirstName, LastName
-FROM Employees
-WHERE LastName LIKE '%EI%'
-
---Problem 3.Find First Names of All Employees
-
-SELECT FirstName 
+--CONTACT
+SELECT CONCAT(FirstName, ' ', LastName)
+    AS [Full Name]
   FROM Employees
- WHERE DepartmentID IN (3,10) 
-       AND (SELECT YEAR(HireDate)) >= 1995 
-	   AND (SELECT YEAR(HireDate)) <= 2005
 
---Problem 4.Find All Employees Except Engineers
+--SUBSTRING
+--SUBSTRING(String, StartIndex, Length)
+ SELECT SUBSTRING('SoftUni', 5, 3)
 
-SELECT FirstName, LastName
+ --REPLACE(String, Pattern, Replacement)
+ SELECT REPLACE('SoftUni', 'Soft', 'Hard')
+
+ --LEFT(String, Count) AND RIGHT(String, Count)
+SELECT LEFT(FirstName, 1) + REPLICATE('*', LEN(FirstName)-1)
 FROM Employees
-WHERE JobTitle NOT LIKE '%engineer%'
 
---Problem 5.Find Towns with Name Length
+--LOWER and UPPER
+SELECT LOWER(FirstName), UPPER(LastName)
+FROM Employees
 
-SELECT [Name]
-FROM Towns
-WHERE LEN([Name]) IN (5,6)
---BETWEEN 5 AND 6
-ORDER BY [Name]
+--REVERSE
+SELECT REVERSE(FirstName)
+FROM Employees
 
---Problem 6.Find Towns Starting With
+--REPLICATE(String, Count)
+SELECT REPLICATE('*', 12)
 
-SELECT *
-FROM Towns
-WHERE [Name] LIKE 'm%' OR [Name] LIKE 'k%' OR [Name] LIKE 'b%' OR [Name] LIKE 'e%'
-ORDER BY[Name]
+--CHARINDEX(Pattern, String, [StartIndex]) Start Index is optional
 
---Problem 7.Find Towns Not Starting With
+--STUFF(String, StartIndex, Length, Substring)
 
-SELECT *
-FROM Towns
-WHERE[Name] NOT LIKE 'r%' AND [Name] NOT LIKE 'b%' AND [Name] NOT LIKE 'd%'
-ORDER BY [Name]
+--Math Functions
+SELECT PI()
 
---Problem 8.Create View Employees Hired After 2000 Year
+SELECT ABS(-2)
 
-CREATE VIEW V_EmployeesHiredAfter2000 AS
-SELECT FirstName,LastName 
+SELECT SQRT(2)
+
+SELECT SQUARE(2)
+
+--POWER(Value, Exponent)
+SELECT POWER(4, 2)
+
+--ROUND(Value, Precision)
+SELECT ROUND(21.12432, 2)
+
+--FLOOR and CEILING
+SELECT FLOOR(2.4324324)
+SELECT CEILING(2.4324324)
+
+--SIGN(Value) Returns 1,-1 or 0
+SELECT SIGN (-123)
+SELECT SIGN (0)
+SELECT SIGN (123)
+
+--RAND() and RAND(Seed) Random number in range 0 to 1
+SELECT RAND()
+
+--Date Functions
+
+--DATEPART(Part, Date)
+--year, yyyy, yy YEAR(Date)
+--month, mm, m MONTH(Date)
+--day, dd, d DAY(Date)
+
+--DATEPART
+SELECT InvoiceId, Total,
+       DATEPART(QUARTER, InvoiceDate) AS Quarter,
+       DATEPART(MONTH, InvoiceDate) AS Month,
+       DATEPART(YEAR, InvoiceDate) AS Year,
+       DATEPART(DAY, InvoiceDate) AS Day
+  FROM Invoice
+
+
+--DATEDIFF(Part, FirstDate, SecondDate)
+SELECT ID, FirstName, LastName,
+       DATEDIFF(YEAR, HireDate, '2017/01/25')
+    AS [Years In Service]
   FROM Employees
- WHERE (SELECT YEAR(HireDate)) > 2000
 
- SELECT *
- FROM V_EmployeesHiredAfter2000
+--DATENAME(Part, Date)
+SELECT DATENAME(weekday, '2017/01/27')
 
- --Problem 9.Length of Last Name
+--DATEADD
+DATEADD(Part, Number, Date)
 
- SELECT FirstName, LastName
- FROM Employees
- WHERE LEN(LastName)=5
+--GETDATE
+SELECT GETDATE()
+
+--Other Functions
 
 
-EXEC sp_changedbowner 'sa'
+--CAST(Data AS NewType)
+SELECT ProjectID, Name,
+       ISNULL(CAST(EndDate AS varchar), 'Not Finished')
+  FROM Projects
 
---DROP TABLE Towns
---DROP TABLE Addresses
---DROP TABLE Projects
---DROP TABLE EmployeesProjects
---DROP TABLE Employees
+--CONVERT(NewType, Data)
 
---TRUNCATE TABLE Towns
---TRUNCATE TABLE Addresses
---TRUNCATE TABLE Projects
---TRUNCATE TABLE EmployeesProjects
---TRUNCATE TABLE Employees
+--ISNULL(Data, DefaultValue)
 
---SELECT * FROM Employees
+--OFFSET and FETCH
+  SELECT ID, FirstName, LastName
+    FROM Employees
+ORDER BY ID
+  OFFSET 10 ROWS
+   FETCH NEXT 5 ROWS ONLY
+
+--Wildcards
+
+--WHERE and LIKE
+
+--% any string, including zero-length
+--_ any single character
+--[…] any character within range
+--[^…] any character not in the range
+
+
+SELECT ID, FirstName, LastName
+  FROM Employees
+ WHERE FirstName LIKE 'Ro%'
+
+ SELECT ID, Name
+  FROM Tracks
+ WHERE Name LIKE '%max!%' ESCAPE '!'
 
 
 
