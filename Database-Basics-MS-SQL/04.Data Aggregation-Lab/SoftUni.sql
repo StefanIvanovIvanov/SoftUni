@@ -53,8 +53,6 @@ GROUP BY e.DepartmentID
 HAVING SUM(e.Salary)>200000
 
 --OVER
-
-
 SELECT Salary, SUM(Salary) OVER (ORDER BY EmployeeID)
 FROM Employees
 

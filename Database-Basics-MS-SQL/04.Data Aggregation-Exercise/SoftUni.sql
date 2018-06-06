@@ -14,29 +14,62 @@ GO
 
 --Problem 13.Departments Total Salaries
 
-
+SELECT DepartmentID, SUM(Salary) AS TotalSalary
+FROM Employees
+GROUP BY DepartmentID
 
 --Problem 14.Employees Minimum Salaries
 
-
+SELECT DepartmentID, MIN(Salary) AS MinSalary
+FROM Employees
+WHERE DepartmentID IN (2, 5, 7) AND HireDate >= '01/01/2000'
+GROUP BY DepartmentID
 
 --Problem 15.Employees Average Salaries
 
+SELECT *  INTO EmployeesAverageSalary
+FROM Employees
+WHERE Salary > 30000
 
+DELETE FROM EmployeesAverageSalary
+WHERE ManagerID = 42
+
+UPDATE EmployeesAverageSalary
+SET Salary += 5000
+WHERE DepartmentID = 1
+
+SELECT DepartmentId, AVG(Salary) AS AverageSalary
+FROM EmployeesAverageSalary
+GROUP BY DepartmentID
 
 --Problem 16.Employees Maximum Salaries
 
-
+SELECT DepartmentID, MAX(Salary) AS MaxSalary
+FROM Employees
+GROUP BY DepartmentID
+HAVING MAX(Salary) < 30000 OR MAX(Salary) > 70000
 
 --Problem 17.Employees Count Salaries
 
-
+SELECT COUNT(*) AS [Count]
+FROM Employees
+WHERE ManagerID IS NULL
 
 
 --Problem 18.3rd Highest Salary
 
-
-
+SELECT DepartmentID,
+       Salary
+FROM
+(
+	SELECT DepartmentId, Salary,
+	       DENSE_RANK() OVER(PARTITION BY DepartmentID ORDER BY Salary DESC) AS Rank
+	FROM Employees
+	GROUP BY DepartmentID,
+	         Salary
+) AS thirdHighestSalary
+WHERE Rank = 3
+ 
 --Problem 19.Salary Challenge
 
 SELECT TOP(10) FirstName, LastName, DepartmentID
@@ -47,8 +80,6 @@ FROM Employees AS e2
 WHERE e1.DepartmentID=e2.DepartmentID
 GROUP BY DepartmentID
 )
-
-
 
 SELECT Salary, SUM(Salary) OVER (ORDER BY EmployeeID)
 FROM Employees
