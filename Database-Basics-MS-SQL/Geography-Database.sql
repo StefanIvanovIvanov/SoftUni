@@ -10,12 +10,6 @@ GO
 
 --Problem 9.*Peaks in Rila
 
-USE Geography
-SELECT m.MountainRange, p.PeakName, p.Elevation FROM Mountains AS m
-JOIN Peaks AS p ON p.MountainId = m.Id
-WHERE m.MountainRange = 'Rila'
-ORDER BY p.Elevation DESC
-
 -- Drop all existing Geography tables, so that we can create them
 IF OBJECT_ID('Monasteries') IS NOT NULL
   DROP TABLE Monasteries
