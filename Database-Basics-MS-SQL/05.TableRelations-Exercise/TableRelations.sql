@@ -69,7 +69,6 @@ UPDATE Teachers
 SET ManagerID = 105
 WHERE TeacherID = 104
 
-
 --Problem 5.Online Store Database
 
 CREATE TABLE Cities(
