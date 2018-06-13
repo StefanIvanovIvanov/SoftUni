@@ -71,6 +71,8 @@ WHERE TeacherID = 104
 
 --Problem 5.Online Store Database
 
+--Always start with the table that is not dependable of other table
+
 CREATE TABLE Cities(
 	CityID INT PRIMARY KEY NOT NULL,
 	Name VARCHAR(50) NOT NULL
@@ -103,20 +105,6 @@ CREATE TABLE OrderItems (
 	OrderID INT FOREIGN KEY REFERENCES Orders(OrderID) NOT NULL,
 	ItemID INT FOREIGN KEY REFERENCES Items(ItemID) NOT NULL
 	CONSTRAINT PK_Order_Items PRIMARY KEY (OrderID, ItemID)
-)
-
---Always start with the table that is not dependable of other tables
-
-CREATE TABLE Cities(
-CityID INT NOT NULL,--add primary key
-[Name] VARCHAR(50) NOT NULL
-)
-
-CREATE TABLE Customers(
-CustomerID INT NOT NULL,--add primary key
-[Name] VARCHAR(50) NOT NULL,--add check constraint
-Birthday DATE NOT NULL,
-CityID INT NOT NULL--add foreign key
 )
 
 --Problem 6.University Database
