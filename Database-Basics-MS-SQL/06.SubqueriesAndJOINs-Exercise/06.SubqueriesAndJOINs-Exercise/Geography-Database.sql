@@ -6,6 +6,102 @@ GO
 USE Geography
 GO
 
+--Problem 12.Highest Peaks in Bulgaria
+
+SELECT c.CountryCode, m.MountainRange, p.PeakName, p.Elevation FROM Countries AS c
+JOIN MountainsCountries AS mc
+ON c.CountryCode = mc.CountryCode AND c.CountryCode = 'BG'
+JOIN Mountains AS m
+ON m.Id = mc.MountainId
+JOIN Peaks AS p
+ON p.MountainId = mc.MountainId AND p.Elevation > 2835
+ORDER BY p.Elevation DESC
+
+--Problem 13.Count Mountain Ranges
+
+SELECT c.CountryCode, COUNT(mc.MountainId) AS MountainRanges
+FROM Countries AS c
+JOIN MountainsCountries AS mc ON mc.CountryCode = c.CountryCode
+WHERE c.CountryCode IN ('US', 'RU', 'BG')
+GROUP BY c.CountryCode
+
+--Problem 14.Countries with Rivers
+
+SELECT TOP(5) c.CountryName, r.RiverName
+FROM Countries AS c
+LEFT JOIN CountriesRivers AS cr ON cr.CountryCode = c.CountryCode
+LEFT JOIN Rivers AS r ON r.ID = cr.RiverID
+WHERE c.ContinentCode = 'AF'
+ORDER BY c.CountryName ASC
+
+--Problem 15.Continents and Currencies
+
+WITH CTE_CountriesInfo(ContinentCode, CurrencyCode, CurrencyUsage) AS (
+SELECT ContinentCode, CurrencyCode, COUNT(CurrencyCode)
+FROM Countries
+GROUP BY ContinentCode, CurrencyCode
+HAVING COUNT(CurrencyCode)>1
+)
+
+SELECT e.ContinentCode, cci.CurrencyCode, e.MaxCurrency AS CurrencyUsage FROM(
+SELECT ContinentCode, MAX(CurrencyUsage) AS MaxCurrency FROM CTE_CountriesInfo
+GROUP BY ContinentCode) AS e
+JOIN CTE_CountriesInfo AS cci ON cci.ContinentCode = e.ContinentCode AND
+cci.CurrencyUsage=e.MaxCurrency
+
+--Problem 16.Countries without any Mountains
+
+SELECT COUNT(*) AS CountryCode
+FROM Countries AS c
+LEFT JOIN MountainsCountries AS mc ON mc.CountryCode = c.CountryCode
+WHERE mc.CountryCode IS NULL
+
+--Problem 17.Highest Peak and Longest River by Country
+
+WITH CTE_CountryHighestPeak AS
+(
+	SELECT c.CountryName, MAX(p.Elevation) AS HighestPeakElevation FROM Countries AS c
+	LEFT JOIN MountainsCountries AS mc
+	ON mc.CountryCode = c.CountryCode
+	LEFT JOIN Peaks AS p
+	ON p.MountainId = mc.MountainId
+	GROUP BY c.CountryName
+),
+
+CTE_CountryLongestRiver AS
+(
+	SELECT c.CountryName, MAX(r.Length) AS LongestRiverLength FROM Countries AS c
+	LEFT JOIN CountriesRivers AS cr
+	ON cr.CountryCode = c.CountryCode
+	LEFT JOIN Rivers AS r
+	ON r.Id = cr.RiverId
+	GROUP BY c.CountryName
+)
+
+SELECT TOP(5) hp.CountryName, hp.HighestPeakElevation, lr.LongestRiverLength FROM CTE_CountryHighestPeak AS hp
+JOIN CTE_CountryLongestRiver AS lr
+ON lr.CountryName = hp.CountryName
+ORDER BY hp.HighestPeakElevation DESC, lr.LongestRiverLength DESC
+--Problem 18.Highest Peak Name and Elevation by Country
+
+WITH CTE_CountriesInfo(CountryName, PeakName, Elevation, Mountain) AS(
+SELECT c.CountryName, p.PeakName, MAX(p.Elevation), m.MountainRange
+FROM Countries AS c
+LEFT JOIN MountainsCountries AS mc ON mc.CountryCode = c.CountryCode
+LEFT JOIN Mountains AS m ON m.ID=mc.MountainId
+LEFT JOIN Peaks AS p ON p.MountainId=m.Id
+GROUP BY c.CountryName, p.PeakName, m.MountainRange)
+
+SELECT TOP(5) e.CountryName, 
+		ISNULL(cci.PeakName, '(no highest peak)') AS [Highest Peak Name],
+		ISNULL(cci.Elevation, 0) AS [Highest Peak Elevation],
+		ISNULL(cci.Mountain, '(no mountain)') AS [Moountain]
+FROM (
+SELECT CountryName, MAX(Elevation) AS MaxElevation
+FROM CTE_CountriesInfo
+GROUP BY CountryName ) AS e
+LEFT JOIN CTE_CountriesInfo AS cci ON cci.CountryName = e.CountryName AND cci.Elevation=e.MaxElevation
+ORDER BY e.CountryName, cci.PeakName
 
 -- Drop all existing Geography tables, so that we can create them
 IF OBJECT_ID('Monasteries') IS NOT NULL
