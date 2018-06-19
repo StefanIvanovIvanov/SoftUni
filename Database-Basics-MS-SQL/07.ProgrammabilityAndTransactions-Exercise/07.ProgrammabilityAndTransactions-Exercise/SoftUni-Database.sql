@@ -47,7 +47,7 @@ CREATE PROCEDURE usp_GetEmployeesFromTown(@townName VARCHAR(50)) AS
 BEGIN
 	SELECT FirstName, LastName
 	FROM Employees AS e
-	JOIn Addresses AS a ON a.AddressID = e.AddressID
+	JOIN Addresses AS a ON a.AddressID = e.AddressID
 	JOIN Towns AS t ON t.TownID = a.TownID
 	WHERE t.Name LIKE @townName + '%'
 END
@@ -156,7 +156,51 @@ WHERE DepartmentID = @departmentId
 
 --Problem 21.Employees with Three Projects
 
+CREATE PROCEDURE usp_AssignProject (@employeeId INT, @projectID INT)
+AS
+BEGIN
+	BEGIN TRAN
+	INSERT INTO EmployeesProjects 
+	VALUES (@employeeId, @projectID)
+	IF(SELECT COUNT(ProjectID)
+	     FROM EmployeesProjects
+	    WHERE EmployeeID = @employeeId) > 3
+	BEGIN
+		RAISERROR('The employee has too many projects!', 16, 1)
+		ROLLBACK
+		RETURN
+	END
+	COMMIT
+END
+
 --Problem 22.Delete Employees
+
+CREATE TABLE Deleted_Employees
+(
+  EmployeeId INT PRIMARY KEY IDENTITY,
+  FirstName VARCHAR(50) NOT NULL,
+  LastName VARCHAR(50) NOT NULL,
+  MiddleName VARCHAR(50),
+  JobTitle VARCHAR(50),
+  DepartmentId INT,
+  Salary DECIMAL (15, 2)
+)
+
+GO
+CREATE TRIGGER tr_DeleteEmployees ON Employees
+AFTER DELETE 
+AS
+BEGIN
+  INSERT INTO Deleted_Employees
+  SELECT FirstName, 
+         LastName, 
+  	   MiddleName, 
+  	   JobTitle, 
+  	   DepartmentID, 
+  	   Salary 
+  FROM deleted
+END
+GO
 
 CREATE TABLE Towns(
   TownID int IDENTITY NOT NULL,

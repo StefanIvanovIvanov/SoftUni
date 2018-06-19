@@ -49,11 +49,162 @@ END
 
 --Problem 14.Create Table Logs
 
+CREATE TABLE Logs(
+LogId INT IDENTITY NOT NULL,
+AccountId INT,
+OldSum DECIMAL(15, 2),
+NewSum DECIMAL(15, 2)
+)
+
+CREATE TRIGGER tr_Accounts
+On Accounts
+FOR UPDATE
+AS
+INSERT INTO Logs
+VALUES(
+       (SELECT Id FROM inserted),
+	   (SELECT Balance FROM deleted),
+	   (SELECT Balance FROM inserted)
+	   )
+
+VALUES
+(@accountId, @oldSum, @newSum)
+END
+
 --Problem 15.Create Table Emails
+
+CREATE TABLE NotificationEmails (
+       Id INT PRIMARY KEY IDENTITY,
+	     Recipient INT,
+	     Subject VARCHAR(MAX),
+     Body VARCHAR(MAX)
+	   )
+
+CREATE TRIGGER CreateNewNotificationEmail ON Logs
+ AFTER INSERT
+    AS
+ BEGIN
+INSERT INTO NotificationEmails
+VALUES(
+       (SELECT AccountId FROM inserted),
+	   (CONCAT('Balance change for account: ', (SELECT AccountId FROM inserted))),
+	   (CONCAT('On ',(SELECT GETDATE() FROM inserted),
+	    'your balance was changed from ', (SELECT OldSum FROM inserted), 
+		'to ', (SELECT NewSum FROM inserted), '.'))
+	   )
+   END
+
+--Problem 16.Deposit Money
+
+
+CREATE PROCEDURE usp_DepositMoney (@accountId INT, @moneyAmount DECIMAL(15,4))
+AS
+BEGIN
+
+	BEGIN TRANSACTION
+
+	UPDATE Accounts
+	SET Balance = Balance + @moneyAmount
+	WHERE Id = @accountId
+
+	IF (@@ROWCOUNT <> 1)
+	BEGIN
+		RAISERROR('Invalid account!', 16,2)
+		ROLLBACK;
+		RETURN;
+	END
+
+	COMMIT
+END
 
 --Problem 17.Withdraw Money
 
+CREATE PROCEDURE usp_WithdrawMoney (@accountId INT, @moneyAmount DECIMAL(15,4))
+AS
+BEGIN
+
+DECLARE @balance DECIMAL(15, 2) = (
+	SELECT Balance
+	FROM Accounts AS a
+	WHERE @accountId = a.Id)
+
+	BEGIN TRANSACTION	
+
+	IF(@balance - @moneyAmount < 0)
+	BEGIN
+	RAISERROR('Insufficient amount!', 16,2)
+		ROLLBACK;
+		RETURN;
+	END
+
+	UPDATE Accounts
+	SET Balance = Balance - @moneyAmount
+	WHERE Id = @accountId
+
+	IF (@@ROWCOUNT <> 1)
+	BEGIN
+		RAISERROR('Invalid account!', 16,2)
+		ROLLBACK;
+		RETURN;
+	END
+
+	COMMIT
+END
+
 --Problem 18.Money Transfer
+
+CREATE PROCEDURE usp_TransferMoney (@senderId int, @receiverId int, @transferAmount money)
+AS
+BEGIN 
+
+  DECLARE @senderBalanceBefore money = (SELECT Balance FROM Accounts WHERE Id = @senderId);
+
+  IF(@senderBalanceBefore IS NULL)
+  BEGIN
+    RAISERROR('Invalid sender account!', 16, 1);
+    RETURN;
+
+  END   
+
+  DECLARE @receiverBalanceBefore money = (SELECT Balance FROM Accounts WHERE Id = @receiverId);  
+
+  IF(@receiverBalanceBefore IS NULL)
+  BEGIN
+    RAISERROR('Invalid receiver account!', 16, 1);
+    RETURN;
+  END   
+
+  IF(@senderId = @receiverId)
+  BEGIN
+    RAISERROR('Sender and receiver accounts must be different!', 16, 1);
+    RETURN;
+  END  
+
+  IF(@transferAmount <= 0)
+  BEGIN
+    RAISERROR ('Transfer amount must be positive!', 16, 1); 
+    RETURN;
+
+  END 
+
+  BEGIN TRANSACTION
+  EXEC usp_WithdrawMoney @senderId, @transferAmount;
+  EXEC usp_DepositMoney @receiverId, @transferAmount;
+
+  DECLARE @senderBalanceAfter money = (SELECT Balance FROM Accounts WHERE Id = @senderId);
+  DECLARE @receiverBalanceAfter money = (SELECT Balance FROM Accounts WHERE Id = @receiverId);  
+
+  IF((@senderBalanceAfter <> @senderBalanceBefore - @transferAmount) OR 
+     (@receiverBalanceAfter <> @receiverBalanceBefore + @transferAmount))
+    BEGIN
+      ROLLBACK;
+      RAISERROR('Invalid account balances!', 16, 1);
+      RETURN;
+    END
+
+  COMMIT;
+
+END
 
 CREATE TABLE AccountHolders
 (
