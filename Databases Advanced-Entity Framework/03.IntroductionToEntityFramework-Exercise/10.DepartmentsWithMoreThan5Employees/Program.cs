@@ -11,19 +11,38 @@ namespace _10.DepartmentsWithMoreThan5Employees
         {
             using (SoftUniContext context = new SoftUniContext())
             {
-                var departmentSeparator = $"{Environment.NewLine}{new string('-', 10)}{Environment.NewLine}";
+                var departments = context.Departments
+                    .Where(d => d.Employees.Count() > 5)
+                    .Select(d => new
+                    {
+                        EmpCount = d.Employees.Count(),
+                        DepartmentName = d.Name,
+                        ManagerId = d.ManagerId,
+                        ManagerName = $"{d.Manager.FirstName} {d.Manager.LastName}",
+                        Employees = d.Employees.Select(e => new
+                        {
+                            FirstName = e.FirstName,
+                            LastName = e.LastName,
+                            e.JobTitle,
+                        })
 
-                Console.WriteLine(string.Join(departmentSeparator, context.Departments
-                    .Where(d => d.Employees.Count > 5)
-                    .OrderBy(d => d.Employees.Count)
-                    .ThenBy(d => d.Name)
-                    .Select(d => $"{d.Name} - {d.Manager.FirstName} {d.Manager.LastName}{Environment.NewLine}" +
-                                 $@"{string.Join(Environment.NewLine, d.Employees
-                                     .OrderBy(e => e.FirstName)
-                                     .ThenBy(e => e.LastName)
-                                     .Select(e => $"{e.FirstName} {e.LastName} - {e.JobTitle}"))}")));
+                    })
+                    .OrderBy(dep => dep.EmpCount)
+                    .ThenBy(dep => dep.DepartmentName)
+                    .ToList();
 
-                Console.WriteLine(new string('-', 10));
+                foreach (var de in departments)
+                {
+                    Console.WriteLine($"{de.DepartmentName} - {de.ManagerName}");
+
+                    var sorted = de.Employees.OrderBy(e => e.FirstName).ThenBy(e => e.LastName).ToList();
+
+                    foreach (var emp in sorted)
+                    {
+                        Console.WriteLine($"{emp.FirstName} {emp.LastName} - {emp.JobTitle}");
+                    }
+                    Console.WriteLine("----------");
+                }
             }
         }
     }
