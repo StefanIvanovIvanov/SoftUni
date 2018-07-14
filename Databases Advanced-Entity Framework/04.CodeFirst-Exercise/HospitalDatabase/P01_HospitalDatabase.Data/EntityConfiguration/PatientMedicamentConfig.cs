@@ -11,11 +11,15 @@ namespace P01_HospitalDatabase.Data.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<PatientMedicament> builder)
         {
-            builder.HasKey(x => new {x.MedicamentId, x.PatientId});
+          entity.HasKey(e => new { e.PatientId, e.MedicamentId });
 
-           //builder.HasOne(x => x.Patient)
-           //    .WithMany(x => x.Prescriptions)
-           //    .HasForeignKey(x => x.PatientId);
+                entity.HasOne(e => e.Medicament)
+                   .WithMany(e => e.Prescriptions)
+                   .HasForeignKey(e => e.MedicamentId);
+
+                entity.HasOne(e => e.Patient)
+                  .WithMany(e => e.Prescriptions)
+                  .HasForeignKey(e => e.PatientId);
         }
     }
 }
