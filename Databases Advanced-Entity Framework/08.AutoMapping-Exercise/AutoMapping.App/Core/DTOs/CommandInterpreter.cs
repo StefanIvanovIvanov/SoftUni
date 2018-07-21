@@ -26,6 +26,11 @@ namespace AutoMapping.App.Core.Controllers
                 .GetTypes()
                 .FirstOrDefault(x => x.Name == commandName);
 
+            if (type == null)
+            {
+                throw new ArgumentException("InvalidCommand");
+            }
+
             var contructor = type.GetConstructors().First();
 
             var constructorParameters = contructor.GetParameters()

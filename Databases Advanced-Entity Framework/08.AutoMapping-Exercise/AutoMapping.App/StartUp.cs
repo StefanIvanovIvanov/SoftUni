@@ -39,6 +39,7 @@ namespace AutoMapping.App
 
             serviceCollection.AddTransient<IEmployeeController, EmployeeController>();
 
+            serviceCollection.AddTransient<IManagerController, ManagerController>();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 

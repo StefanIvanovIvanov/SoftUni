@@ -28,6 +28,12 @@ namespace AutoMapping.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.HasOne(x => x.Manager)
+                    .WithMany(x => x.ManagerEmployees)
+                    .HasForeignKey(x => x.ManagerId);
+            });
         }
     }
 }

@@ -8,6 +8,8 @@ using AutoMapping.App.Core.Contracts;
 using AutoMapping.App.Core.DTOs;
 using AutoMapping.Data;
 using AutoMapping.Models;
+using Employees.DtoModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoMapping.App.Core.Controllers
 {
@@ -62,31 +64,44 @@ namespace AutoMapping.App.Core.Controllers
         public EmployeeDto GetEmployeeInfo(int employeeId)
         {
             var employee = context.Employees
-                .Where(x => x.EmployeeId==employeeId)
-                .ProjectTo<EmployeeDto>()
-                .SingleOrDefault();
+                .Find(employeeId);
+
+            var employeDto = mapper.Map<EmployeeDto>(employee);
 
             if (employee == null)
             {
                 throw new ArgumentException("Invalid Id");
             }
 
-            return employee;
+            return employeDto;
         }
 
         public EmployeePersonalInfoDto GetEmployeePersonalInfoDto(int employeeId)
         {
             var employee = context.Employees
-                .Where(x => x.EmployeeId == employeeId)
-                .ProjectTo<EmployeePersonalInfoDto>()
-                .SingleOrDefault();
+                .Find(employeeId);
+
+            var employeDto = mapper.Map<EmployeePersonalInfoDto>(employee);
 
             if (employee == null)
             {
                 throw new ArgumentException("Invalid Id");
             }
 
-            return employee;
+            return employeDto;
+        }
+
+        public List<EmployeeManagerDto> OlderThanAge(int age)
+        {
+            var employees = context.Employees
+                .Where(e => e.Birthday != null
+                            && Math.Floor
+                                ((DateTime.Now - e.Birthday).TotalDays / 365) > age)
+                .Include(e => e.Manager)
+                .ProjectTo<EmployeeManagerDto>()
+                .ToList();
+
+            return employees;
         }
     }
 }

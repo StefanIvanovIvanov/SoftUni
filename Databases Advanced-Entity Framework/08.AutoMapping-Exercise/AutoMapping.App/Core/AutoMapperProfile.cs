@@ -12,6 +12,11 @@ namespace AutoMapping.App.Core
         public AutoMapperProfile()
         {
             CreateMap<Employee, EmployeeDto>().ReverseMap();
+            CreateMap<Employee, ManagerDto>()
+                .ForMember(dest=>dest.EmployeeDto, from=>from.MapFrom(x=>
+                x.ManagerEmployees))
+                .ReverseMap();
+            CreateMap<Employee, EmployeePersonalInfoDto>().ReverseMap();
         }
     }
 }

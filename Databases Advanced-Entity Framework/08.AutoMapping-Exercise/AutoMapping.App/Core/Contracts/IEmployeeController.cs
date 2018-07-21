@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapping.App.Core.DTOs;
+using Employees.DtoModels;
 
 namespace AutoMapping.App.Core.Contracts
 {
@@ -14,5 +16,7 @@ namespace AutoMapping.App.Core.Contracts
         EmployeeDto GetEmployeeInfo(int employeeId);
 
         EmployeePersonalInfoDto GetEmployeePersonalInfoDto(int employeeId);
+
+        List<EmployeeManagerDto> OlderThanAge(int age);
     }
 }

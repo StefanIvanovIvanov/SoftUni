@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AutoMapping.Models
 {
     public class Employee
     {
+        public Employee()
+        {
+            this.ManagerEmployees = new HashSet<Employee>();
+        }
+
         [Key]
         public int EmployeeId { get; set; }
 
@@ -20,5 +26,10 @@ namespace AutoMapping.Models
         public DateTime Birthday { get; set; }
 
         public string Adress { get; set; }
+
+        public int? ManagerId { get; set; }
+        public Employee Manager { get; set; }
+
+        public ICollection<Employee> ManagerEmployees { get; set; }
     }
 }
