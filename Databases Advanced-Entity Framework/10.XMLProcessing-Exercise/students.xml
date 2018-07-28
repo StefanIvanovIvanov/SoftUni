@@ -1,0 +1,17 @@
+<student>
+<name>Stefan Ivanov</name>
+<gender>Male</gender>
+<birthDate>1986/07/06</birthDate>
+<phoneNumber>0888123456</phoneNumber>
+<email>stefan.ivanov@randommail.bg</email>
+<university>Software University</university>
+<specialty>C# Web Developer</specialty>
+<facilityNumber>12345678</facilityNumber>
+<exams>
+	<exam>
+		<name>Programming Basics</name>
+		<dateTaken>2017/02/04</dateTaken>
+		<grade>6.0</grade>
+	<exam>
+</exams>
+</student>
