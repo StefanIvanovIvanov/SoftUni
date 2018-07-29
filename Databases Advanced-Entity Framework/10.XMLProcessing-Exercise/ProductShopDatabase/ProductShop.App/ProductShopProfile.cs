@@ -11,9 +11,9 @@ namespace ProductShop.App
     {
         public ProductShopProfile()
         {
-            CreateMap<UserDto, User>();
-            CreateMap<ProductDto, Product>();
-            CreateMap<CategoryDto, Category>();
+            //CreateMap<UserDto, User>();
+            //CreateMap<ProductDto, Product>();
+            //CreateMap<CategoryDto, Category>();
         }
     }
 }

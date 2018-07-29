@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using AutoMapper;
 using ProductShop.App.Dto;
 using ProductShop.App.Dto.Export;
+using ProductShop.App.Dto.NewUsers;
 using ProductShop.Data;
 using ProductShop.Models;
 
@@ -29,7 +30,8 @@ namespace ProductShop.App
             //Users:
 
 
-            //Reading the .xml file
+            //Reading the .xml file:
+
             //var xmlString = File.ReadAllText(@"../../../Xml/users.xml");
 
             //var serializer = new XmlSerializer(typeof(UserDto[]), new XmlRootAttribute("users"));
@@ -166,22 +168,89 @@ namespace ProductShop.App
             //
             //File.WriteAllText("products-in-range.xml", sb.ToString());
 
+
+
+            //var context = new ProductShopContext();
+            //
+            //var users = context.Users
+            //    .Where(x=>x.ProductsSold.Count>=1)
+            //    .OrderBy(x=>x.LastName)
+            //    .ThenBy(x=>x.FirstName)
+            //    .Select(x => new UserDtoExport
+            //    {
+            //        FirstName = x.FirstName,
+            //        LastName = x.LastName,
+            //        SoldProducts = x.ProductsSold.Select(s=> new SoldProduct
+            //        {
+            //            Name = s.Name,
+            //            Price = s.Price
+            //        })
+            //        .ToArray()
+            //    })
+            //    .ToArray();
+            //
+            //StringBuilder sb = new StringBuilder();
+            //var xmlNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            //var serializer = new XmlSerializer(typeof(UserDtoExport[]), new XmlRootAttribute("users"));
+            //serializer.Serialize(new StringWriter(sb), users, xmlNamespaces);
+            //
+            //File.WriteAllText("users-sold-prodducts.xml", sb.ToString());
+
+
+
+            //var context = new ProductShopContext();
+            //
+            //var categories = context.Categories
+            //    .OrderByDescending(c => c.CategoryProducts.Count)
+            //    .Select(x => new CategoryDtoExport
+            //    {
+            //        Name = x.Name,
+            //        Count = x.CategoryProducts.Count,
+            //        TotalRevenue = x.CategoryProducts.Sum(s => s.Product.Price),
+            //        AveragePrice = x.CategoryProducts.Select(s=>s.Product.Price).DefaultIfEmpty(0).Average()
+            //    })
+            //    .ToArray();
+            //
+            //
+            //StringBuilder sb = new StringBuilder();
+            //var xmlNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            //var serializer = new XmlSerializer(typeof(CategoryDtoExport[]), new XmlRootAttribute("categories"));
+            //serializer.Serialize(new StringWriter(sb), categories, xmlNamespaces);
+            //
+            //File.WriteAllText("categores-by-products.xml", sb.ToString());
+
             var context = new ProductShopContext();
 
-            var users = context.Users
-                .Select(x => new UserDtoExport
-                {
-                    FirstName = x.FirstName,
-                    LastName = x.LastName
-                })
-                .ToArray();
+            var users = new UsersDto
+            {
+                Count = context.Users.Count(),
+                Users = context.Users
+                    .Where(x => x.ProductsSold.Count >= 1)
+                    .Select(x => new UserDtoNew
+                    {
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Age = x.Age.ToString(),
+                        SoldProducts = new SoldProductDto
+                        {
+                            Count = x.ProductsSold.Count,
+                            Products = x.ProductsSold.Select(k => new ProductDtoSold
+                            {
+                                Name = k.Name,
+                                Price = k.Price
+                            }).ToArray()
+                        }
+                    }).ToArray()
+            };
 
-            StringBuilder sb = new StringBuilder();
-            var xmlNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
-            var serializer = new XmlSerializer(typeof(UserDtoExport[]), new XmlRootAttribute("users"));
+            var sb = new StringBuilder();
+
+            var xmlNamespaces=new XmlSerializerNamespaces(new [] {XmlQualifiedName.Empty, });
+
+            var serializer = new XmlSerializer(typeof(UsersDto), new XmlRootAttribute("users"));
             serializer.Serialize(new StringWriter(sb), users, xmlNamespaces);
-            
-            File.WriteAllText("users-sold-prodducts.xml", sb.ToString());
+
+            File.WriteAllText("users-and-products.xml", sb.ToString());
         }
 
         public static bool isValid(object obj)

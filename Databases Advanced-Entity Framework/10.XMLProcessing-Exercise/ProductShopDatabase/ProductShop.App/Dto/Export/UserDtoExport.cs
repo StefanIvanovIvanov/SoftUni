@@ -13,6 +13,7 @@ namespace ProductShop.App.Dto.Export
         [XmlAttribute("last-name")]
         public string LastName { get; set; }
 
-        
+        [XmlArray("sold-products")]
+        public SoldProduct[] SoldProducts { get; set; }
     }
 }
