@@ -17,7 +17,7 @@
         public string Type { get; set; }
 
         [Required]
-        [Range(1, 666)]
+        [Range(1, 777)]
         public int Age { get; set; }
 
         [Required]
