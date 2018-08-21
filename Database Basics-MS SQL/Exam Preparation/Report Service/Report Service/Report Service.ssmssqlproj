@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
-<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Exam Preparation">
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Report Service">
   <Items>
     <LogicalFolder Name="Connections" Type="2" Sorted="true">
       <Items>
         <ConnectionNode Name="STEFAN:STEFAN\Stefan Ivanov">
-          <Created>2018-06-20T23:37:15.477655+03:00</Created>
+          <Created>2018-08-19T11:55:56.2388591+03:00</Created>
           <Type>SQL</Type>
           <Server>STEFAN</Server>
           <UserName />
           <Authentication>Windows Authentication</Authentication>
-          <InitialDB />
+          <InitialDB>master</InitialDB>
           <LoginTimeout>30</LoginTimeout>
           <ExecutionTimeout>0</ExecutionTimeout>
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
@@ -19,11 +19,11 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="ExamPreparation.sql">
+        <FileNode Name="ReportService.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:STEFAN:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>STEFAN</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>ExamPreparation.sql</FullPath>
+          <FullPath>ReportService.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

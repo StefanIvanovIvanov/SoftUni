@@ -12,7 +12,6 @@ using PrisonerDto = SoftJail.DataProcessor.ExportDto.PrisonerDto;
 
 namespace SoftJail.DataProcessor
 {
-
     using Data;
     using System;
 
@@ -20,7 +19,9 @@ namespace SoftJail.DataProcessor
     {
         public static string ExportPrisonersByCells(SoftJailDbContext context, int[] ids)
         {
-            var prisoners = context.Prisoners.Include(h=>h.PrisonerOfficers).ThenInclude(y=>y.Officer).Where(x => ids.Any(p => p == x.Id))
+            var prisoners = context.Prisoners.Where(x => ids.Any(p => p == x.Id)).Include(p => p.PrisonerOfficers)
+                .ThenInclude(op => op.Officer)
+                .ThenInclude(o => o.Department)
                 .Select(i => new
                 {
                     Id = i.Id,

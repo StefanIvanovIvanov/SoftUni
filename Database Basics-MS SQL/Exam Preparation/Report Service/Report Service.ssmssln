@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # SQL Server Management Studio Solution File, Format Version 14.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Exam Preparation II", "Exam Preparation II\Exam Preparation II.ssmssqlproj", "{B64FDC80-7D53-4E40-9B60-2811D2FB6682}"
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Report Service", "Report Service\Report Service.ssmssqlproj", "{A1D2A624-B66C-42B3-90E7-DC1BFCAA8855}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B64FDC80-7D53-4E40-9B60-2811D2FB6682}.Default|Default.ActiveCfg = Default
+		{A1D2A624-B66C-42B3-90E7-DC1BFCAA8855}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

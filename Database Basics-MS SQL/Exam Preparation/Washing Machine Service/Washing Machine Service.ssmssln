@@ -3,15 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # SQL Server Management Studio Solution File, Format Version 14.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Exam Preparation", "Exam Preparation\Exam Preparation.ssmssqlproj", "{A1D72F4D-40B8-4DC7-9FAF-466007C37CAB}"
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Washing Machine Service", "Washing Machine Service\Washing Machine Service.ssmssqlproj", "{6E80264F-2DA1-43D2-901C-DD5C5C6E5E1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A1D72F4D-40B8-4DC7-9FAF-466007C37CAB}.Default|Default.ActiveCfg = Default
-		{C90BE575-95C6-4F87-B848-E8D363051520}.Default|Default.ActiveCfg = Default
+		{6E80264F-2DA1-43D2-901C-DD5C5C6E5E1B}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
