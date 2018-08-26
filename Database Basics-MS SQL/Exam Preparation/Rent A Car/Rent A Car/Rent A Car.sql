@@ -283,7 +283,6 @@ ORDER BY cte.TownName, cte.Bill, cte.ClientId
 
 --15
 
-
 SELECT t.Name, mp.MelaPercent, fp.FemalePercent
 FROM Towns AS t
 LEFT JOIN (SELECT

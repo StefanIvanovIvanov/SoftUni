@@ -3,7 +3,6 @@
 CREATE DATABASE TheNerdHerd
 GO
 
-
 USE TheNerdHerd
 GO
 
