@@ -1,12 +1,10 @@
 CREATE DATABASE Supermarket
-
 USE Supermarket
 
 --1
 CREATE TABLE Categories(
 Id INT PRIMARY KEY IDENTITY,
 [Name] NVARCHAR(30) NOT NULL,
-
 )
 
 CREATE TABLE Items(
@@ -60,7 +58,6 @@ CONSTRAINT FK_Shifts_Employees FOREIGN KEY(EmployeeId) REFERENCES  Employees(Id)
 CONSTRAINT CH_CheckOut CHECK (CheckOut>=CheckIn)
 )
 
-
 --2
 
 INSERT INTO Employees (FirstName, LastName, Phone, Salary)
@@ -83,7 +80,6 @@ VALUES
 UPDATE Items
 SET Price+=Price*0.27
 WHERE CategoryId IN (1,2,3)
-
 
 --4
 DELETE FROM OrderItems
@@ -108,6 +104,7 @@ WHERE Phone LIKE '3%'
 ORDER BY FirstName, Phone
 
 --7
+
 SELECT 
 e.FirstName,
 e.LastName,
@@ -118,8 +115,8 @@ ON o.EmployeeId=e.Id
 GROUP BY e.FirstName, e.LastName
 ORDER BY COUNT(o.Id) DESC, FirstName
 
-
 --8
+
 SELECT e.FirstName,
 e.LastName,
 AVG(DATEDIFF(HOUR, s.CheckIn, s.CheckOut)) AS [Work hours]
@@ -290,8 +287,6 @@ BEGIN
 END
 
 SELECT dbo.udf_GetPromotedProducts('2018-08-02', '2018-08-01', '2018-08-03',13, 3,4,5)
-
-
 
 --19
 
