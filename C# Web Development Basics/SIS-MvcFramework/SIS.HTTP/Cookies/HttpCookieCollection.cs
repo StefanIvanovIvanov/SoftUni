@@ -2,8 +2,8 @@
 
 namespace SIS.HTTP.Cookies
 {
-    using Common;
     using System.Collections.Generic;
+    using Common;
 
     public class HttpCookieCollection : IHttpCookieCollection
     {

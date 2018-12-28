@@ -1,11 +1,11 @@
-﻿using CakesWebApp.Models;
+﻿using System;
+using SIS.HTTP.Responses;
+using System.Linq;
+using CakesWebApp.Models;
 using CakesWebApp.ViewModels.Account;
 using SIS.HTTP.Cookies;
-using SIS.HTTP.Responses;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Services;
-using System;
-using System.Linq;
 
 namespace CakesWebApp.Controllers
 {
@@ -19,13 +19,14 @@ namespace CakesWebApp.Controllers
             this.hashService = hashService;
         }
 
+        [HttpGet("/account/register")]
         public IHttpResponse Register()
         {
-            return this.View();
+            return this.View("Register");
         }
 
-        [HttpPost]
-        public IHttpResponse Register(DoRegisterInputModel model)
+        [HttpPost("/account/register")]
+        public IHttpResponse DoRegister(DoRegisterInputModel model)
         {
             // Validate
             if (string.IsNullOrWhiteSpace(model.Username) || model.Username.Trim().Length < 4)
@@ -66,45 +67,45 @@ namespace CakesWebApp.Controllers
             }
             catch (Exception e)
             {
+                // TODO: Log error
                 return this.ServerError(e.Message);
             }
 
-            return this.Redirect("/Account/Login");
+            // TODO: Login
+
+            // Redirect
+            return this.Redirect("/");
         }
 
+        [HttpGet("/account/login")]
         public IHttpResponse Login()
         {
-            return this.View();
+            return this.View("Login");
         }
 
-        [HttpPost]
-        public IHttpResponse Login(DoLoginInputModel model)
+        [HttpPost("/account/login")]
+        public IHttpResponse DoLogin(DoLoginInputModel model)
         {
             var hashedPassword = this.hashService.Hash(model.Password);
 
-            var user = this.Db.Users.FirstOrDefault(x =>
+            var user = this.Db.Users.FirstOrDefault(x => 
                 x.Username == model.Username.Trim() &&
                 x.Password == hashedPassword);
 
             if (user == null)
             {
-                return BadRequestErrorWithView("Invalid username or password!");
+                return this.BadRequestError("Invalid username or password.");
             }
 
-            var mvcUser = new MvcUserInfo
-            {
-                Username = user.Username,
-                Info = user.DateOfRegistration.ToString("dd/MM/yyyy")
-            };
-
+            var mvcUser = new MvcUserInfo { Username = user.Username };
             var cookieContent = this.UserCookieService.GetUserCookie(mvcUser);
 
             var cookie = new HttpCookie(".auth-cakes", cookieContent, 7) { HttpOnly = true };
             this.Response.Cookies.Add(cookie);
-
             return this.Redirect("/");
         }
 
+        [HttpGet("/account/logout")]
         public IHttpResponse Logout()
         {
             if (!this.Request.Cookies.ContainsCookie(".auth-cakes"))

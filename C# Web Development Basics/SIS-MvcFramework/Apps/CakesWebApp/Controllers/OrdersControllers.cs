@@ -1,15 +1,15 @@
-﻿using CakesWebApp.Models;
+﻿using System.Linq;
+using CakesWebApp.Models;
 using CakesWebApp.ViewModels.Cakes;
 using CakesWebApp.ViewModels.Orders;
 using SIS.HTTP.Responses;
 using SIS.MvcFramework;
-using System.Linq;
 
 namespace CakesWebApp.Controllers
 {
     public class OrdersControllers : BaseController
     {
-        [HttpPost]
+        [HttpPost("/orders/add")]
         public IHttpResponse Add(int productId)
         {
             var userId = this.Db.Users.FirstOrDefault(x => x.Username == this.User.Username)?.Id;
@@ -41,10 +41,11 @@ namespace CakesWebApp.Controllers
             this.Db.OrderProducts.Add(orderProduct);
             this.Db.SaveChanges();
 
-            return this.Redirect("/Orders/ById?id=" + lastUserOrder.Id);
+            return this.Redirect("/orders/byid?id=" + lastUserOrder.Id);
         }
 
-        public IHttpResponse ById(int id)
+        [HttpGet("/orders/byid")]
+        public IHttpResponse GetById(int id)
         {
             var order = this.Db.Orders.FirstOrDefault(x => x.Id == id
                                 && x.User.Username == this.User.Username);
@@ -69,9 +70,10 @@ namespace CakesWebApp.Controllers
                 }).ToList();
             viewModel.IsShoppingCart = lastOrderId == order.Id;
 
-            return this.View(viewModel);
+            return this.View("OrderById", viewModel);
         }
 
+        [HttpGet("/orders/list")]
         public IHttpResponse List()
         {
             var orders = this.Db.Orders.Where(x => x.User.Username == this.User.Username)
@@ -83,10 +85,10 @@ namespace CakesWebApp.Controllers
                     SumOfProductPrices = x.Products.Sum(p => p.Product.Price),
                 });
 
-            return this.View(orders.ToArray());
+            return this.View("OrdersList", orders.ToArray());
         }
 
-        [HttpPost]
+        [HttpPost("/orders/finish")]
         public IHttpResponse Finish(int orderId)
         {
             var userId = this.Db.Users.FirstOrDefault(x => x.Username == this.User.Username)?.Id;
@@ -109,7 +111,7 @@ namespace CakesWebApp.Controllers
             this.Db.Orders.Add(newEmptyOrder);
             this.Db.SaveChanges();
 
-            return this.Redirect("/Orders/List");
+            return this.Redirect("/orders/list");
         }
     }
 }

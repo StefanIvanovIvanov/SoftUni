@@ -1,5 +1,5 @@
-﻿using CakesWebApp.ViewModels.Cakes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CakesWebApp.ViewModels.Cakes;
 
 namespace CakesWebApp.ViewModels.Orders
 {

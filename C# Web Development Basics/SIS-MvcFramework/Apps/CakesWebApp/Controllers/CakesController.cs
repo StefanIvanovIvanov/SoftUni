@@ -1,10 +1,10 @@
-﻿using CakesWebApp.Models;
+﻿using System;
+using System.Linq;
+using CakesWebApp.Models;
 using CakesWebApp.ViewModels.Cakes;
 using SIS.HTTP.Responses;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Logger;
-using System;
-using System.Linq;
 
 namespace CakesWebApp.Controllers
 {
@@ -17,13 +17,14 @@ namespace CakesWebApp.Controllers
             this.logger = logger;
         }
 
-        public IHttpResponse Add()
+        [HttpGet("/cakes/add")]
+        public IHttpResponse AddCakes()
         {
-            return this.View();
+            return this.View("AddCakes");
         }
 
-        [HttpPost]
-        public IHttpResponse Add(DoAddCakesInputModel model)
+        [HttpPost("/cakes/add")]
+        public IHttpResponse DoAddCakes(DoAddCakesInputModel model)
         {
             // TODO: Validation
             var product = model.To<Product>();
@@ -43,6 +44,8 @@ namespace CakesWebApp.Controllers
             return this.Redirect("/cakes/view?id=" + product.Id);
         }
 
+        // cakes/view?id=1
+        [HttpGet("/cakes/view")]
         public IHttpResponse ById(int id)
         {
             var product = this.Db.Products.FirstOrDefault(x => x.Id == id);
@@ -52,26 +55,28 @@ namespace CakesWebApp.Controllers
             }
 
             var viewModel = product.To<CakeViewModel>();
-            return this.View(viewModel);
+            return this.View("CakeById", viewModel);
         }
 
+        // cakes/search?searchText=cake
+        [HttpGet("/cakes/search")]
         public IHttpResponse Search(string searchText)
         {
             var cakes = this.Db.Products.Where(x => x.Name.Contains(searchText))
                 .Select(x => new CakeViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    ImageUrl = x.ImageUrl,
-                    Price = x.Price,
-                }).ToList();
+                             {
+                                 Id = x.Id,
+                                 Name = x.Name,
+                                 ImageUrl = x.ImageUrl,
+                                 Price = x.Price,
+                             }).ToList();
             var cakesViewModel = new SearchViewModel
             {
                 Cakes = cakes,
                 SearchText = searchText,
             };
 
-            return this.View(cakesViewModel);
+            return this.View("Search", cakesViewModel);
         }
     }
 }

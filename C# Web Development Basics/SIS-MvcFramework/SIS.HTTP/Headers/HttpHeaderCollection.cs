@@ -1,5 +1,5 @@
-﻿using SIS.HTTP.Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SIS.HTTP.Common;
 
 namespace SIS.HTTP.Headers
 {
@@ -10,7 +10,7 @@ namespace SIS.HTTP.Headers
         public HttpHeaderCollection()
         {
             this.headers = new Dictionary<string, HttpHeader>();
-        }
+        }   
 
         public void Add(HttpHeader header)
         {
