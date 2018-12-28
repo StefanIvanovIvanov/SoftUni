@@ -19,30 +19,45 @@ namespace Eventures.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Eventures.Models.EventuresEvent", b =>
+            modelBuilder.Entity("Eventures.Models.CustomLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedTime");
+
+                    b.Property<int>("EventId");
+
+                    b.Property<string>("LogLevel");
+
+                    b.Property<string>("Message");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("Eventures.Models.EventureEvent", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<DateTime>("End");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Name");
 
-                    b.Property<string>("Place")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Place");
 
-                    b.Property<decimal>("PricePerTicket");
+                    b.Property<DateTime>("Start");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<decimal>("TicketPrice");
 
                     b.Property<int>("TotalTickets");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Events");
+                    b.ToTable("EventureEvents");
                 });
 
             modelBuilder.Entity("Eventures.Models.EventuresUser", b =>
@@ -60,13 +75,9 @@ namespace Eventures.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("FirstName");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -88,9 +99,7 @@ namespace Eventures.Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<string>("UniqueCitizenNumber")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("UniqueCitizenNumber");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -110,24 +119,17 @@ namespace Eventures.Data.Migrations
 
             modelBuilder.Entity("Eventures.Models.Order", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("UserId");
 
-                    b.Property<string>("EventId")
-                        .IsRequired();
+                    b.Property<int>("EventId");
 
-                    b.Property<DateTime>("OrderedOn");
+                    b.Property<DateTime>("CreatedOn");
 
-                    b.Property<int>("TicketsCount");
+                    b.Property<string>("EventId1");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.HasKey("UserId", "EventId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("EventId1");
 
                     b.ToTable("Orders");
                 });
@@ -244,10 +246,9 @@ namespace Eventures.Data.Migrations
 
             modelBuilder.Entity("Eventures.Models.Order", b =>
                 {
-                    b.HasOne("Eventures.Models.EventuresEvent", "Event")
+                    b.HasOne("Eventures.Models.EventureEvent", "Event")
                         .WithMany("Orders")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("EventId1");
 
                     b.HasOne("Eventures.Models.EventuresUser", "User")
                         .WithMany("Orders")
