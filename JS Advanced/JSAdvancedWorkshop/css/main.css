@@ -1,0 +1,22 @@
+﻿.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+#gameField {
+    border: 1px solid black;
+}
+
+canvas {
+    float: left;
+    margin-right: 20px;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.textRight {
+    text-align: right;
+}
