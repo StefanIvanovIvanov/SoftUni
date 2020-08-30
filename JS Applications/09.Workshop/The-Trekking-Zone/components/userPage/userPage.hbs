@@ -1,0 +1,16 @@
+{{>nav}}
+<div class="profile col-md-6 text-center col-lg">
+    <img class="profile-img" src="./images/user.png" />
+    <div class="profile-info">
+        <p>Username: <small>{{username}}</small></p>
+        <p class="infoType">Wished {{treksNumber}} treks =)</p>
+        {{#if foundTreks}}
+            {{#each treks}}
+                <p>{{this}}</p>
+            {{/each}}
+        {{else}}
+            <p>No treks</p>
+        {{/if}}
+    </div>
+</div>
+{{>footer}}
