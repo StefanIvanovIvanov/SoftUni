@@ -1,0 +1,124 @@
+@import url('typography.css');
+
+body {
+    background: rgb(238, 238, 238);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, serif;
+    font-size : 1em;
+    line-height: 1.2; 
+}
+
+header {
+    position: relative;
+    border-bottom: 2px solid #000;
+}
+
+header li {
+    display: inline-block;
+}
+
+header ul {
+    position: absolute;
+    top:0;
+    right: 0;
+    margin: 2em;
+}
+
+.site-title {
+    display: inline-block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 50px;
+    padding-bottom: 0.5em;
+}
+
+main {
+    padding-top: 2em;
+}
+
+.cleaner:after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.media {
+    background:rgb(255, 255, 255);
+    width: 25%;
+    position: relative;
+    margin: 1rem auto;
+    border: 3px solid #000;
+    float: right; 
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.25);
+}
+
+.second-media {
+    background: rgb(255,255,255);
+    width: 25%;
+    position: relative;
+    margin: auto 1rem;
+    overflow: hidden;
+    border: 3px solid #000;
+    float: left;
+    box-shadow: 0 0 1rem 0 rgba(0,0,0,0.25);
+}
+
+.media:before,
+.media:after,
+.second-media:before,
+.second-media:after {
+    display: block;
+    content: '';
+}
+
+.media:before {
+    padding-top: 150%;
+}
+
+.second-media:before {
+    padding-top: 56.25%;
+}
+
+.media img {
+    display: block;
+    width: 90%;
+    position: absolute;
+    top:50%; left: 50%;
+    transform: translate(-50%,-50%);
+    float: right;
+}
+
+.second-media img {
+    display: block;
+    height: 90%;
+    position: absolute;
+    top: 50%; left:50%;
+    transform: translate(-50%,-50%);
+}
+
+blockquote {
+    font-family: Georgia, serif;
+    border-left: 1px solid silver;
+    float: right;
+    width: 40%;
+    margin-left: 1em;
+    margin-bottom: 1em;
+}
+
+blockquote p {
+    margin-top: 1em;
+}
+
+main {
+    width: 70%;
+    float:left;
+}
+
+aside {
+    width: 30%;
+    float:right;
+    padding-left: 5em;
+    padding-top: 2em;
+}

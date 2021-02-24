@@ -1,0 +1,97 @@
+.cards-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cards-list:after {
+    display: block;
+    content: '';
+}
+
+.cards-list:after,
+.card {
+    flex: 0 0 31%;
+}
+
+.card {
+    border: 1px solid #666;
+    border-radius: 0.3em;
+    overflow: hidden;
+    flex: 0 0 30%;
+    margin-bottom: 3%;
+}
+
+.card-media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.3em;
+    margin: 0.5em;
+    border: 1px solid #000;
+}
+
+.card-media:before {
+    display: block;
+    content: '';
+    padding-top: 56.25%;
+}
+
+.card-media:after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right:0; bottom: 0;
+    border: 1px solid #000;
+    border-radius: 0.3em;
+}
+
+.card-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card-header {
+    padding: 0.5em 1.5em;
+    padding-top: 1em;
+    line-height: 1.1;
+}
+
+.card-content {
+    padding: 0.5em 1.5em;
+    padding-bottom: 2em;
+}
+
+.card-footer {
+    border-top: 1px solid #000;
+}
+
+.card-footer ul {
+    display: flex;
+}
+
+.card-footer li {
+    flex: 1 1 auto;
+    list-style: none outside;
+}
+
+.card-footer li:first-child {
+    border-right: 1px solid #000;
+}
+
+.card-footer a {
+    display: block;
+    padding: 0.5em 1em;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+}
+
+.card-footer a:hover {
+    background: #000;
+    color: #FFF;
+}
+

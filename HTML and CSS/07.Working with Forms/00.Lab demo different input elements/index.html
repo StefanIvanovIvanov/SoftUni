@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Forms demo</title>
+</head>
+
+<body>
+    <form action="/contacts/new" method="GET">
+
+        <fieldset>
+            <legend>Contact Info</legend>
+
+            <p>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" placeholder="Ivan">
+            </p>
+
+            <p>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="ivan@abv.bg" required>
+            </p>
+
+            <p>
+                <label for="age">Age</label>
+                <input type="number">
+            </p>
+
+            <p>
+                <label for="message">Message</label>
+                <textarea name="message" id="message" cols="10" rows="5"></textarea>
+            </p>
+
+            <p>
+                <input type="checkbox" name="contact_concent" id="contact_concent">
+                <label for="contact_concent">Yes, I agree to be contacted</label>
+            </p>
+
+            <ul>
+                <li>
+                    <input type="radio" name="options" id="options_1">
+                    <label for="options_1">Option 1</label>
+                </li>
+
+                <li>
+                    <input type="radio" name="options" id="options_2">
+                    <label for="options_2">Option 2</label>
+                </li>
+
+                <li>
+                    <input type="radio" name="options" id="options_3">
+                    <label for="options_3">Option 3</label>
+                </li>
+            </ul>
+
+            <p>
+                <select name="optionsanother" id="optionsanother">
+                    <option value="">Please select an option</option>
+                    <option value="111">First</option>
+                    <option value="222">Second</option>
+                    <option value="333">Third</option>
+                </select>
+            </p>
+
+            <p>
+                <input type="submit" value="Send it!">
+                <input type="reset" value="Clear All">
+            </p>
+
+        </fieldset>
+
+    </form>
+</body>
+
+</html>

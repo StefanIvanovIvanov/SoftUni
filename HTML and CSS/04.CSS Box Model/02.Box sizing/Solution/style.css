@@ -1,0 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    box-sizing: inherit;
+}
+
+section {
+    width: 250px;
+    height: 250px;
+    border: 0.5rem dashed yellow;
+    text-align: center;
+}
+
+p {
+    box-sizing: border-box;
+    width: 100%;
+    border: 0.5rem solid blueviolet;
+    padding: 20px 20px 20px 20px;
+}

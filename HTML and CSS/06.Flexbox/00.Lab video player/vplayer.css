@@ -1,0 +1,62 @@
+@import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+
+.vplayer {
+    width: 100%;
+    flex: 1 0 100%;
+    border-radius: 0.3em;
+    overflow: hidden;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+}
+
+.vplayer-screen {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+.vplayer-screen:before {
+    display: block;
+    content: '';
+    padding-top: 56.25%;
+}
+
+.vplayer-controls {
+    background: #999;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.vplayer-controls .track {
+    height: 0.3em;
+    background: #000;
+    flex:1 0 auto;
+    margin: 0 1rem;
+    position: relative;
+}
+
+.vplayer-controls .head {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: #F00;
+    position: absolute;
+    top:50%; left:0;
+    transform: translateY(-50%);
+}
+
+
+.vplayer-controls button {
+    background: none;
+    border: none;
+    padding: 0.5em;
+    font-size: 1.3em;
+    cursor: pointer;
+    border-radius: 0.3em;
+}
+
+.vplayer-controls button:hover {
+    background: #900;
+    color: #FFF;
+}

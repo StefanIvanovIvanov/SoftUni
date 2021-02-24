@@ -1,0 +1,24 @@
+body, ul, li {
+    display: flex;
+}
+
+ul {
+    background: gray;
+    padding: 2rem;
+    margin: 5rem;
+    flex: 1 1 80%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+li {
+    align-items: center;
+    border: 0.5em solid black;
+    background: white;
+    margin: 0.2em;
+}
+
+img {
+    padding: 0.5em;
+}
+

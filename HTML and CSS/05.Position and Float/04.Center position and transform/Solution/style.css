@@ -1,0 +1,62 @@
+body {
+    background: rgb(238, 238, 238); 
+}
+
+h1 {
+    font: 1em, 1.2, Georgia, serif;
+}
+
+.card {
+    background: rgb(255,255,255);
+    width: 30vw;
+    height: auto;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+}
+
+.card-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image:after{
+    display: block;
+    content: '';
+    padding-top: 56.25%; 
+}
+
+img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+h1 {
+    font: 1em/1.2 Georgia, serif;
+    padding: 1.5rem 0 0.5rem 1.5rem;
+    font-weight: bold;
+}
+
+p {
+    padding: 0 1.5rem 2rem 1.5rem;
+    font-size: 0.7em;
+}
+
+button {
+    background: rgb(0, 153, 0); 
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    color: white;
+    border-style: none;
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 0.6em;
+}

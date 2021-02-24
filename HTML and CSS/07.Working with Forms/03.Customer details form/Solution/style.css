@@ -1,0 +1,45 @@
+html {
+    box-sizing: border-box;
+    font: 16px/1.2 Montserrat, sans-serif;
+}
+
+body, form ,select, input, textarea, option {
+    font: inherit;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    margin: 2rem;
+    background: white;
+    border-radius: 0.5em;
+    background: rgb(173, 216, 230);
+}
+
+fieldset { 
+    border: none; 
+    margin: 1em 1em 0 1em;
+}
+
+legend {
+    text-align: center;
+}
+
+p {
+    display: flex;
+}
+
+label {
+    padding-right: 1rem;
+    width: 15rem;
+}
+
+input[type="submit"]{
+    background: blue;
+    color: white;
+    padding: 0.5em;
+    margin-left: 15em;
+}

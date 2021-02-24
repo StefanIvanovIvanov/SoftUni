@@ -1,0 +1,29 @@
+body {
+    font-size: 20px;
+}
+
+p {
+    padding-bottom: 2rem;
+}
+
+.fixed {
+    background: aquamarine;
+    padding: 2rem;
+    border: 1px solid black;
+    position: fixed;
+    width: 1300px;
+    margin: 0 auto;
+    top:0;
+    opacity: 0.5;
+    color: red;
+    font-size: 24px;
+    text-shadow: 1px 1px 1px #000000;
+}
+
+.sticky {
+    background: yellowgreen;
+    color: white;
+    padding: 2rem;
+    position: sticky;
+    top:20px;
+}

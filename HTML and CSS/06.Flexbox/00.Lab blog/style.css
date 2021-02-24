@@ -1,0 +1,94 @@
+*, *:before, *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0.5rem;
+}
+
+.site {
+    max-width: 60rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-footer,
+.site-header {
+    background: #000;
+    color: #FFF;
+    display: flex;
+    overflow: hidden;
+    border-radius: 0.5em;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.site-header a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.site-header h1 {
+    font-size: 3rem;
+}
+
+.site-header h1 a {
+    padding: 0 1rem;
+}
+
+.site-header nav {
+    display: flex;
+    margin-left: auto;
+}
+
+.site-header nav ul {
+    display: flex;
+}
+
+.site-header nav li {
+    list-style: none outside;
+    display: flex;
+}
+
+.site-header nav a {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.site-header nav a:hover {
+    background: #900;
+}
+
+.site-content {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.site-content main {
+    flex: 1 1 30rem;
+    padding: 1rem;
+    background: #666;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+}
+.site-content aside {
+    flex: 1 1 15rem;
+    padding: 1rem;
+    background: #AAA;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.site-footer {
+    padding: 1em;
+}

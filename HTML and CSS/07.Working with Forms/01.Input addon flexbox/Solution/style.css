@@ -1,0 +1,71 @@
+@import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+
+* {
+    box-sizing: inherit;
+    padding:0;
+    margin:0;
+}
+
+html {
+    box-sizing: border-box;
+    font: 14px/1.5 Verdana, sans-serif;
+}
+
+body, form, select, input, textarea, option {
+    font: inherit;
+}
+
+body {
+    padding:2rem;
+}
+
+form {
+    max-width: 30rem;
+    margin: 0 auto;
+}
+
+form fieldset {
+    display: block;
+    border: 2px solid #999;
+    padding: 2rem;
+}
+
+form fieldset p {
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+form legend {
+    font-weight: bold;
+    border: 0.1em solid #999;
+    padding: 1em;
+}
+
+
+form input[type="password"],
+form input[type="text"]{
+    padding: 0.5rem 1rem;
+    border: 2px solid #999;
+}
+
+form input[type="password"]:hover,
+form input[type="password"]:focus,
+form input[type="text"]:hover,
+form input[type="text"]:focus{
+    border-color: green;
+}
+
+form input[type="submit"]{
+    max-width: 20%;
+}
+
+.icons{
+    position: relative;
+}
+
+.icon-user {
+    position:absolute;
+    left:7px;
+    top:28px;
+}

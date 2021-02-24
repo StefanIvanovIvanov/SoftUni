@@ -1,0 +1,43 @@
+@import url('typography.css');
+
+body {
+    background: rgb(238, 238, 238);
+    color: rgb(51, 51, 51);
+    padding: 2rem;
+}
+
+article {
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+header {
+    border-bottom: 4px;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+footer {
+    border-top: 4px;
+    padding-top: 1rem;
+    margin-top: 2rem;
+}
+
+img {
+    max-width: 60%;
+}
+
+article,
+aside {
+    display: inline-block;
+}
+
+aside {
+    vertical-align: top;
+    margin: 0 0 0 2rem;
+}
+
+aside ul li {
+    margin: 0 0 0 2rem;
+}
+

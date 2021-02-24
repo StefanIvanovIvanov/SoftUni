@@ -1,0 +1,74 @@
+@import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+
+html {
+    font-family: Montserrat, sans-serif;
+    line-height: 1.2;
+}
+
+div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to right, #2bb6e4, #00abf1, #009efc, #078eff, #5c79ff, #786dff, #945dfc, #af46f5, #b740f6, #bf3af8, #c831f8, #d026f9);
+}
+
+form {
+    margin: 2rem;
+    background: white;
+    border-radius: 0.5em;
+}
+
+fieldset { 
+    border: none; 
+    margin: 1em 1em 0 1em;
+}
+
+legend {
+    text-align: center;
+}
+
+p {
+    display: flex;
+}
+
+p input {
+    flex-basis: 100%;
+}
+
+p input:hover{
+    border-color: pink;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-in-btn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sign-in-btn button{
+   padding: 0.5em;
+   border-radius: 0.5em;
+   display: flex;
+   align-items:center;
+}
+
+i {
+    margin:0.3em;
+}
+
+.facebook {
+    background: blue;
+    color: white;
+}
+
+
+p input[value="Sign In"]{
+    background: black;
+    color: white;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}

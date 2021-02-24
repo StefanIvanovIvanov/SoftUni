@@ -1,0 +1,68 @@
+html {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 60rem;
+    margin: auto;
+    padding: 2rem ;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+*, *:after, *:before {
+    box-sizing: inherit;
+}
+
+body, input, textarea, option, select, table, form, blockquote {
+    font: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    line-height: 1.2;
+    font-size: 1em;
+    padding-bottom: 1rem;
+}
+
+p, ul, ol, blockquote {
+    padding-bottom: 1.5em;
+}
+
+ul, ol {
+    padding-left: 2.5em;
+}
+
+ul ul, ol ol, ul ol, ol ul {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+li ul li ul li {
+    list-style-type: square;
+}
+
+blockquote {
+    padding-left: 2em;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+blockquote p:last-child {
+    padding-bottom: 0;
+    text-align: right;
+}
+
+li {
+    list-style: square;
+}
+
+a {
+    color:green;
+}
