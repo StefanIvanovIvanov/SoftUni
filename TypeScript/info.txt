@@ -3,3 +3,7 @@ npm install -g typescript // install latest stable build
 tsc --version  // test if TypeScript is installed properly
 
 tsc --init // create tsconfig.json file
+
+// copy configurations from tsconfig.json
+
+// copy launchSettings.json from .vscode
