@@ -1,0 +1,12 @@
+in tsconfig.txt:
+
+{
+    "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+    }
+}
+
+in terminal:
+
+tsc --experimentalDecorators --emitDecoratorMetadata
