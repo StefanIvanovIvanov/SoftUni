@@ -7,3 +7,5 @@ tsc --init // create tsconfig.json file
 // copy configurations from tsconfig.json
 
 // copy launchSettings.json from .vscode
+
+// copy package.json 
