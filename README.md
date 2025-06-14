@@ -22,4 +22,4 @@ JS Fundamentals |
 JS Advanced |
 JS Applications |
 HTML & CSS |
-Typescript |
+TypeScript |
