@@ -1,0 +1,1 @@
+{"version":3,"file":"partialMonthlyMotel.js","sourceRoot":"","sources":["../../src/contracts/partialMonthlyMotel.ts"],"names":[],"mappings":";;;;;;;;;;AAAA,eAAe;AACf,oDAA8C;AAIvC,IAAe,mBAAmB,GAAlC,MAAe,mBAAmB;;IAC9B,MAAM,CAAU,SAAS,GAAG,OAAO,CAAC;IAQ3C,cAAc;QACV,OAAO,UAAU,qBAAmB,CAAC,SAAS,EAAE,CAAC;IACrD,CAAC;;AAXiB,kDAAmB;8BAAnB,mBAAmB;IADxC,0BAAU;GACW,mBAAmB,CAaxC"}
